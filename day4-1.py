@@ -23,17 +23,14 @@ def passportCheck(filename):
 			for field in line:
 				passport[field[0]] = field[1]
 				tempLine = ''
-		else:
-			passports.append(passport)
-			passport = {}
-			tempLine = ''
+#		else:
+#			passports.append(passport)
+#			passport = {}
 
 
 		# Store passport dict into passports list
 		passports.append(passport)
 		passport = {}
-
-	return passports
 
 	# Check each passport dict for length based on valid criteria
 	for passport in passports:
