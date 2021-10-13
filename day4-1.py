@@ -13,20 +13,20 @@ def passportCheck(filename):
 	for line in batchData:
 		# Split non-empty lines to individual dicts
 		if line != '\n':
-			tempLine += line
-			tempLine += ' '
+			tempLine += str(line)
 
 		if line == '\n':
-			line = tempLine.rstrip().split(' ')
-			line = [field.split(':') for field in line]
+			tempLine = tempLine.replace('\n', ' ')
+			tempfield = tempLine.rstrip().split(' ')
+			tempfield = [field.split(':') for field in tempfield]
+			tempLine = ''
 
-			for field in line:
+			for field in tempfield:
 				passport[field[0]] = field[1]
 
 		# Store passport dict into passports list
 		passports.append(passport)
 		passport = {}
-		tempLine = ''
 
 	# Check each passport dict for length based on valid criteria
 	for passport in passports:
