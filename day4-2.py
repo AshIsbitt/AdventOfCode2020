@@ -24,21 +24,19 @@ def validatePassport(passport):
 	elif passport['hgt'][-2:] not in ['cm', 'in']:
 		print(f"5: {passport['hgt']}")
 		return False
-	elif passport['hgt'][-2:] == "cm":
-		if int(passport['hgt'][:-2]) not in range(150, 194):
-			print(6)
-			return False
-	elif passport['hgt'][-2:] == "in":
-		if int(passport['hgt'][:-2]) not in range(59, 77):
-			print(f"7: {passport['hgt']}")
-			return False
-	elif len(passport['hcl'] != 7) and not re.search(hexaPattern, passport['hcl']):
+	elif passport['hgt'][-2:] == "cm" and (int(passport['hgt'][:-2]) not in range(150, 194)):
+		print(6)
+		return False
+	elif passport['hgt'][-2:] == "in" and (int(passport['hgt'][:-2]) not in range(59, 77)):
+		print(f"7: {passport['hgt']}")
+		return False
+	elif len(passport['hcl']) != 7 and not re.search(hexaPattern, passport['hcl']):
 		print(f"8: {passport['hcl']}")
 		return False
 	elif passport['ecl'] not in ['amb', 'blu', 'brn', 'gry', 'grn', 'hzl', 'oth']:
 		print(f"9: {passport['ecl']}")
 		return False
-	elif len(passport['pid']) != 9 or not passport['pid'].isDigit():
+	elif len(passport['pid']) != 9 or not passport['pid'].isdigit():
 		print(10)
 		return False
 
@@ -72,14 +70,12 @@ def passportCheck(filename):
 		passports.append(passport)
 		passport = {}
 
+	# Remove empty passports
+	passports = [p for p in passports if len(p) > 0]
+
 	# Check each passport dict for length based on valid criteria
 	for passport in passports:
-		if len(passport) == 0:
-			passports.remove(passport)
-			continue
-
 		validPassport = validatePassport(passport)
-		print(f'{validPassport=}')
 		if validPassport:
 			validPassportsCount += 1
 		elif validPassport == None:
