@@ -39,8 +39,8 @@ def validatePassport(passport):
 	elif len(passport['pid']) != 9 or not passport['pid'].isdigit():
 		print(10)
 		return False
-
-	return True
+	else:
+		return True
 
 
 def passportCheck(filename):
