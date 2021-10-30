@@ -7,10 +7,12 @@ def main(filename):
         bagRules = fileInputs.readlines()
 
     # For each line, check if they can contain gold
-    # If so, add to a dict with a count
-    # ex: {light red: 3} means light red bags can contain 3 shiny gold bags
-    # Recursively check this (IE if a dark blue bag contains 2 light red bags
-    # Then it can hold 6 gold bags)
+    # If so, add to list in dict
+    # {gold: {red: 2, blue: 3, green: 2}}
+    # In this ex, there are 2 gold bags in a red bag, and 3 in a blue bag
+
+    # for each key(colour) in dict, count how many gold bags they can contain
+    # based off of other dict entries too
 
     # Increment a counter based on if a bag can contain shiny gold
     # Return incrementer
