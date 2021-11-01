@@ -1,10 +1,33 @@
 # How many bag colours can eventually contain at least one shiny gold bag?
 
 
+def dictBuilder(line):
+    lineList = line.split("bags")
+
+    outerDict = {}
+
+    for item in lineList:
+        innerDict = {}
+        item = item.rstrip(" \n")
+        item = item.lstrip(", contain")
+
+        print(item)
+        innerDict[item[2:]] = item[0]
+
+    outerDict[lineList[0]] = innerDict
+    return outerDict
+
+
 def main(filename):
-    # Import file as usual
     with open(filename) as fileInput:
-        bagRules = fileInputs.readlines()
+        bagRules = fileInput.readlines()
+
+    parsedRules = {}
+
+    for line in bagRules:
+        parsedRules.update(dictBuilder(line))
+
+    print(parsedRules)
 
     # For each line, check if they can contain gold
     # If so, add to list in dict
