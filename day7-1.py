@@ -2,19 +2,22 @@
 
 
 def dictBuilder(line):
-    lineList = line.split("bags")
+    lineList = line.split("bag")
 
     outerDict = {}
-
+    print(line)
     for item in lineList:
         innerDict = {}
-        item = item.rstrip(" \n")
-        item = item.lstrip(", contain")
+        item = item.rstrip(".\n, ")
+        item = item.lstrip(", scontain")
 
         print(item)
-        innerDict[item[2:]] = item[0]
+        try:
+            innerDict[item[2:]] = int(item[0])
+        except:
+            continue
 
-    outerDict[lineList[0]] = innerDict
+        outerDict[lineList[0][:-1]] = innerDict
     return outerDict
 
 
