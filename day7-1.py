@@ -5,19 +5,21 @@ def dictBuilder(line):
     lineList = line.split("bag")
 
     outerDict = {}
-    print(line)
+
     for item in lineList:
         innerDict = {}
         item = item.rstrip(".\n, ")
         item = item.lstrip(", scontain")
+        # item = 2 light brown
 
-        print(item)
         try:
             innerDict[item[2:]] = int(item[0])
+            # {color:val}
         except:
             continue
 
-        outerDict[lineList[0][:-1]] = innerDict
+        outerDict.update(innerDict)
+        # {color: {color:val, color:val}}
     return outerDict
 
 
