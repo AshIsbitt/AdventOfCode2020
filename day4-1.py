@@ -2,7 +2,7 @@
 # https://dev.to/aspittel/comment/18mb0
 
 
-def passportCheck(filename):
+def passportCheck(filename: str) -> str:
     with open(filename, "r") as InputFile:
         batchData = InputFile.readlines()
 

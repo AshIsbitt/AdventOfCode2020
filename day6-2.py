@@ -4,7 +4,7 @@
 import string
 
 
-def countAnswers(customsData):
+def countAnswers(customsData: str) -> int:
     customsData = customsData.rstrip()
     peopleInGroup = customsData.count("\n") + 1
     groupYesAnswers = ""
@@ -18,7 +18,7 @@ def countAnswers(customsData):
     return len(groupYesAnswers)
 
 
-def main(filename):
+def main(filename: str) -> str:
     with open(filename, "r") as inputFile:
         customsFormData = inputFile.read().split("\n\n")
 

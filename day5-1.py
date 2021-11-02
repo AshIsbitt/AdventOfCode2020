@@ -2,7 +2,7 @@
 # Binary tree searching
 
 # Convert the input into binary number
-def seatParser(line):
+def seatParser(line:str) -> int:
 	binaryString = ''
 
 	for char in line:
@@ -21,7 +21,7 @@ def seatParser(line):
 	return binaryNum
 
 
-def main(filename):
+def main(filename:str) -> int:
 	with open(filename, 'r') as fileInput:
 		batchData = fileInput.readlines()
 

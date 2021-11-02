@@ -1,4 +1,5 @@
-# How many passwords are valid according to the new interpretation of their policy?
+# How many passwords are valid according to the new interpretation of
+# their policy?
 
 with open("SuppliedInputs/day2.txt", "r") as inputFile:
     passwordList = [s.strip() for s in inputFile.readlines()]

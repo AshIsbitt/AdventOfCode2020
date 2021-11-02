@@ -2,7 +2,7 @@
 # Three-sum problem
 
 
-def threeSum(filename, sumValue):
+def threeSum(filename: str, sumValue: int) -> str:
     # Import the file with numbers
     with open(filename, "r") as inputFile:
         numberList = inputFile.readlines()

@@ -1,7 +1,8 @@
-# Find the two entries that sum up to 2020; what do you get if you multiply them together?
+# Find the two entries that sum up to 2020;
+# what do you get if you multiply them together?
 
 
-def findNumsEqualToSumAndReturnProduct(filename, sumValue):
+def findNumsEqualToSumAndReturnProduct(filename: str, sumValue: int) -> str:
     # Import the file with numbers
     with open(filename, "r") as inputFile:
         numberList = inputFile.readlines()
@@ -23,7 +24,7 @@ def findNumsEqualToSumAndReturnProduct(filename, sumValue):
         if secondNum != 0:
             break
 
-    return f"{currentFirstNum=}, {secondNum=}, Total={currentFirstNum*secondNum}"
+    return f"{currentFirstNum=}, {secondNum=}," f"Total={currentFirstNum*secondNum}"
 
 
 print(findNumsEqualToSumAndReturnProduct("SuppliedInputs/day1-1.txt", 2020))

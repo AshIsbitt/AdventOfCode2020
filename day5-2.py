@@ -2,7 +2,7 @@
 # Binary tree searching
 
 # Convert the input into binary number
-def seatParser(line):
+def seatParser(line:str) -> int:
 	binaryString = ''
 
 	for char in line:
@@ -21,15 +21,18 @@ def seatParser(line):
 	return binaryNum
 
 
-def mySeat(seatArray):
-	empty = 0
+def mySeat(seatArray:list[int]) -> int:
+    empty = 0
 
-	for potentialSeat in range(0, len(seatArray)+1):
-		if (potentialSeat not in seatArray) and (potentialSeat + 1 in seatArray) and (
-		potentialSeat - 1 in seatArray):
-			return potentialSeat
+    for potentialSeat in range(0, len(seatArray)+1):
+        if ((potentialSeat not in seatArray)
+            and (potentialSeat + 1 in seatArray)
+            and (potentialSeat - 1 in seatArray)
+        ):
+            return potentialSeat
 
-def main(filename):
+
+def main(filename:str) -> int:
 	with open(filename, 'r') as fileInput:
 		batchData = fileInput.readlines()
 

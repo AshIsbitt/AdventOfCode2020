@@ -3,7 +3,7 @@
 import re
 
 
-def validatePassport(passport):
+def validatePassport(passport: dict[int, int]) -> bool:
     hexaPattern = re.compile(r"#[0-9a-fA-F]")
 
     if len(passport) != 8 and not (len(passport) == 7 and "cid" not in passport):
@@ -48,7 +48,7 @@ def validatePassport(passport):
         return True
 
 
-def passportCheck(filename):
+def passportCheck(filename: str) -> str:
     with open(filename, "r") as InputFile:
         batchData = InputFile.readlines()
 

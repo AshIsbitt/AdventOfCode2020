@@ -1,7 +1,7 @@
 # Following a slope of right-3 and down-1, how many trees would you encounter
 
 
-def treeMapDetector(filename, rightPattern, downPattern):
+def treeMapDetector(filename: str, rightPattern: int, downPattern: int) -> str:
     with open(filename, "r") as inputFile:
         tobogganMap = inputFile.readlines()
 

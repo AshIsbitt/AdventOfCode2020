@@ -2,7 +2,7 @@
 # What is the sum of those counts
 
 
-def sumOfCounts(customsData):
+def sumOfCounts(customsData: list[str]) -> int:
     sum = 0
 
     for item in customsData:
@@ -13,7 +13,7 @@ def sumOfCounts(customsData):
     return sum
 
 
-def main(filename):
+def main(filename: str) -> int:
     with open(filename, "r") as inputFile:
         customsFormData = inputFile.read().split("\n\n")
 
