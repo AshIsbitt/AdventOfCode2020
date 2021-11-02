@@ -1,7 +1,7 @@
 # How many bag colours can eventually contain at least one shiny gold bag?
 
 
-def dictBuilder(line: str):
+def dictBuilder(line: str) -> dict[str, dict[str, int]]:
     lineList = line.split("bag")
 
     outerDict = {}
@@ -22,8 +22,10 @@ def dictBuilder(line: str):
     return outerDict
 
 
-def recursiveBagSearch(parsedRules, colour):
-    pass
+def recursiveBagSearch(parsedRules: dict[str, dict[str, int]], colour: str) -> int:
+    for k, v in parsedRules.items():
+        if colour in v:
+            print(k, v)
 
     # Recursively search the dist key for names
     # Give the func the colour we want to find
@@ -32,7 +34,7 @@ def recursiveBagSearch(parsedRules, colour):
     # Keep going until we find a bag that contains nothing
 
 
-def main(filename):
+def main(filename: str) -> int:
     with open(filename) as fileInput:
         bagRules = fileInput.readlines()
 
@@ -41,8 +43,7 @@ def main(filename):
     for line in bagRules:
         parsedRules.update(dictBuilder(line))
 
-    for key, value in parsedRules.items():
-        print(key, value)
+    recursiveBagSearch(parsedRules, "shiny gold")
 
     # for key,value  in parsedRules.items():
     #    if 'shiny gold' in key:
