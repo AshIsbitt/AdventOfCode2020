@@ -5,6 +5,7 @@ def dictBuilder(line):
     lineList = line.split("bag")
 
     outerDict = {}
+    outerDict[lineList[0]] = {}
 
     for item in lineList:
         innerDict = {}
@@ -18,8 +19,11 @@ def dictBuilder(line):
         except:
             continue
 
-        outerDict.update(innerDict)
+        outerDict[lineList[0]].update(innerDict)
         # {color: {color:val, color:val}}
+
+    print(f"{line=}")
+    print(f"{outerDict=}")
     return outerDict
 
 
@@ -32,7 +36,7 @@ def main(filename):
     for line in bagRules:
         parsedRules.update(dictBuilder(line))
 
-    print(parsedRules)
+    # print(parsedRules)
 
     # For each line, check if they can contain gold
     # If so, add to list in dict
