@@ -11,20 +11,21 @@ def dictBuilder(line):
         innerDict = {}
         item = item.rstrip(".\n, ")
         item = item.lstrip(", scontain")
-        # item = 2 light brown
 
         try:
             innerDict[item[2:]] = int(item[0])
-            # {color:val}
         except:
             continue
 
         outerDict[lineList[0]].update(innerDict)
-        # {color: {color:val, color:val}}
 
-    print(f"{line=}")
-    print(f"{outerDict=}")
     return outerDict
+
+
+def containsShinyGoldBag(parsedRules):
+    pass
+
+    # Reccursively search the dist key for names
 
 
 def main(filename):
@@ -36,7 +37,12 @@ def main(filename):
     for line in bagRules:
         parsedRules.update(dictBuilder(line))
 
-    # print(parsedRules)
+    for key, value in parsedRules.items():
+        print(key, value)
+
+    # for key,value  in parsedRules.items():
+    #    if 'shiny gold' in key:
+    #        print(key, value)
 
     # For each line, check if they can contain gold
     # If so, add to list in dict
