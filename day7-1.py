@@ -4,7 +4,7 @@
 def dictBuilder(line: str) -> dict[str, dict[str, int]]:
     lineList = line.split("bag")
 
-    outerDict = {}
+    outerDict: dict[str, dict[str, int]] = {}
     outerDict[lineList[0]] = {}
 
     for item in lineList:
@@ -22,16 +22,20 @@ def dictBuilder(line: str) -> dict[str, dict[str, int]]:
     return outerDict
 
 
-def recursiveBagSearch(parsedRules: dict[str, dict[str, int]], colour: str) -> int:
-    for k, v in parsedRules.items():
-        if colour in v:
-            print(k, v)
+def recursiveBagSearch(
+    parsedRules: dict[str, dict[str, int]], colour: str
+) -> list[str]:
+    verifiedColours: list[str] = []
 
-    # Recursively search the dist key for names
-    # Give the func the colour we want to find
-    # Search data for that specific colour
-    # get bag that contains said colour
-    # Keep going until we find a bag that contains nothing
+    for key, value in parsedRules.items():
+        if colour in value:
+            verifiedColours.append(key[:-1])
+            print(f"{key=} contains {colour}")
+
+    for searchColour in verifiedColours:
+        verifiedColours += recursiveBagSearch(parsedRules, searchColour)
+
+    return verifiedColours
 
 
 def main(filename: str) -> int:
@@ -43,11 +47,8 @@ def main(filename: str) -> int:
     for line in bagRules:
         parsedRules.update(dictBuilder(line))
 
-    recursiveBagSearch(parsedRules, "shiny gold")
-
-    # for key,value  in parsedRules.items():
-    #    if 'shiny gold' in key:
-    #        print(key, value)
+    colours = recursiveBagSearch(parsedRules, "shiny gold")
+    return len(colours)
 
 
 if __name__ == "__main__":
