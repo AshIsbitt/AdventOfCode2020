@@ -30,11 +30,12 @@ def recursiveBagSearch(
     for key, value in parsedRules.items():
         if colour in value:
             verifiedColours.append(key[:-1])
-            print(f"{key=} contains {colour}")
+            # print(f"{key=} contains {colour}")
 
     for searchColour in verifiedColours:
         verifiedColours += recursiveBagSearch(parsedRules, searchColour)
 
+    verifiedColours = list(dict.fromkeys(verifiedColours))
     return verifiedColours
 
 
@@ -48,7 +49,8 @@ def main(filename: str) -> int:
         parsedRules.update(dictBuilder(line))
 
     colours = recursiveBagSearch(parsedRules, "shiny gold")
-    return len(colours)
+    print(len(colours))
+    return 0
 
 
 if __name__ == "__main__":
