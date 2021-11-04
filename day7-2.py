@@ -26,7 +26,7 @@ def dictBuilder(line: str) -> dict[str, dict[str, int]]:
 def recursiveBagContainers(
     parsedRules: dict[str, dict[str, int]], entryPoint: str
 ) -> int:
-    totalBags: int = 1
+    totalBags: int = 0
 
     for key, val in parsedRules.items():
         if key == entryPoint:
