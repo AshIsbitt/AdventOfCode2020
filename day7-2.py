@@ -28,12 +28,9 @@ def recursiveBagContainers(
 ) -> int:
     totalBags: int = 0
 
-    print(parsedRules[entryPoint])
-
     for colour, quantity in parsedRules[entryPoint].items():
         totalBags += quantity * (recursiveBagContainers(parsedRules, colour) + 1)
 
-    print(f"{totalBags=}")
     return totalBags
 
 
