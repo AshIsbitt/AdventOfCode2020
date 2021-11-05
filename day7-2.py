@@ -28,16 +28,10 @@ def recursiveBagContainers(
 ) -> int:
     totalBags: int = 0
 
-    for key, val in parsedRules.items():
-        if key == entryPoint:
-            innerDict = val
-            print(key, val)
+    print(parsedRules[entryPoint])
 
-            if val == {}:
-                return 1
-            else:
-                for colour, quantity in innerDict.items():
-                    totalBags += quantity * recursiveBagContainers(parsedRules, colour)
+    for colour, quantity in parsedRules[entryPoint].items():
+        totalBags += quantity * (recursiveBagContainers(parsedRules, colour) + 1)
 
     print(f"{totalBags=}")
     return totalBags
