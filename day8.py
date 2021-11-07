@@ -1,9 +1,12 @@
 # Immediatly before any instruction is executed a second time, what value is in
 # the accumulator
+# pt2: Fix the program so that it terminates normally by changing exactly one
+# NOP to JMP or reverse. What is the value of the accumulator after the program
+# terminates.
 
 
 def bufChecker(
-    bufHistory: list[int], instruction: list[int, str]
+    bufHistory: list[int], instruction: tuple[int, str]
 ) -> tuple[bool, list[int]]:
     instructionPointer = instruction[0]
 
@@ -18,11 +21,12 @@ def interpreter(instructionSet: list[str]) -> int:
     bufHistory: list[int] = []
     pointer: int = 0
 
-    instructionsWithPointers = tuple(enumerate(instructionSet))
+    instructionsWithPointers: list[tuple[int, str]] = [
+        (i, v.rstrip()) for i, v in enumerate(instructionSet)
+    ]
 
     while True:
-        instruction = list(instructionsWithPointers[pointer])
-        instruction[1] = instruction[1].rstrip()
+        instruction: tuple[int, str] = instructionsWithPointers[pointer]
 
         print(
             f"Pointer: {pointer},",
@@ -32,7 +36,6 @@ def interpreter(instructionSet: list[str]) -> int:
 
         alreadyExecuted, bufHistory = bufChecker(bufHistory, instruction)
 
-        print(f"{alreadyExecuted=}")
         if alreadyExecuted == True:
             return accumulator
         else:
