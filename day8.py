@@ -23,7 +23,9 @@ def checkInterpretation(numOfInstructionsRun: int, instructionSet: list[str]) ->
         return True
 
 
-def attemptedRepair(instructionSet: list[str], changedIndex: str) -> list[str]:
+def attemptedRepair(
+    instructionSet: list[str], changedIndex: int
+) -> tuple[list[str], int]:
     # starting at list index changedIndex, I want to find the next nop/jmp
     # and flip it, then change changedIndex to show how many further forward
     # the function has checked. I also want to skip JMP with a positive value
@@ -87,11 +89,9 @@ def main(filename: str) -> int:
     while not hasTerminatedSuccessfully:
         print(f"Testing instruction set with index:{changedIndex=} changed")
         instructionSet, changedIndex = attemptedRepair(instructionSet, changedIndex)
-        changedIndex += 1
-        print(f"{changedIndex=}")
 
         accumulator, numOfInstructionsRun = interpreter(instructionSet)
-        hasTerminatedSuccessfully: bool = checkInterpretation(
+        hasTerminatedSuccessfully = checkInterpretation(
             numOfInstructionsRun, instructionSet
         )
 
