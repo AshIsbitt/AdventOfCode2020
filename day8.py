@@ -87,7 +87,7 @@ def main(filename: str) -> int:
     hasTerminatedSuccessfully: bool = False
 
     while not hasTerminatedSuccessfully:
-        print(f"Testing instruction set with index:{changedIndex=} changed")
+        print(f"Testing instruction set with {changedIndex=} changed")
         instructionSet, changedIndex = attemptedRepair(instructionSet, changedIndex)
 
         accumulator, numOfInstructionsRun = interpreter(instructionSet)
