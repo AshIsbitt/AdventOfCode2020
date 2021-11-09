@@ -1,8 +1,25 @@
-# Immediatly before any instruction is executed a second time, what value is in
-# the accumulator
 # pt2: Fix the program so that it terminates normally by changing exactly one
 # NOP to JMP or reverse. What is the value of the accumulator after the program
 # terminates.
+
+
+def repairInstructionSet(
+    instructionSet: list[str], changedIndex: int
+) -> tuple[list[str], int]:
+
+    for index, instruction in enumerate(instructionSet):
+        if index <= changedIndex:
+            continue
+        elif instruction[:3] == "jmp":
+            instructionSet[index] = instruction.replace("jmp", "nop")
+            changedIndex = index
+            break
+        elif instruction[:3] == "nop":
+            instructionSet[index] = instruction.replace("nop", "jmp")
+            changedIndex = index
+            break
+
+    return instructionSet, changedIndex
 
 
 def bufChecker(
@@ -16,7 +33,7 @@ def bufChecker(
         return False, bufHistory
 
 
-def interpreter(instructionSet: list[str]) -> int:
+def interpreter(instructionSet: list[str]) -> tuple[bool, int]:
     accumulator: int = 0
     bufHistory: list[int] = []
     pointer: int = 0
@@ -25,19 +42,19 @@ def interpreter(instructionSet: list[str]) -> int:
         (i, v.rstrip()) for i, v in enumerate(instructionSet)
     ]
 
-    while True:
+    while pointer < len(instructionsWithPointers):
         instruction: tuple[int, str] = instructionsWithPointers[pointer]
 
-        print(
-            f"Pointer: {pointer},",
-            f"instruction: {instruction},",
-            f"accumulator: {accumulator}",
-        )
+        # print(
+        #    f"Pointer: {pointer},",
+        #    f"instruction: {instruction},",
+        #    f"accumulator: {accumulator}",
+        # )
 
         alreadyExecuted, bufHistory = bufChecker(bufHistory, instruction)
 
         if alreadyExecuted == True:
-            return accumulator
+            return False, accumulator
         else:
             bufHistory.append(instruction[0])
 
@@ -48,14 +65,35 @@ def interpreter(instructionSet: list[str]) -> int:
             if instruction[1][:3] == "acc":
                 accumulator += int(instruction[1][4:])
 
+    return True, accumulator
+
 
 def main(filename: str) -> int:
     with open(filename) as rawInstructions:
         instructionSet = rawInstructions.readlines()
 
-    accumulator = interpreter(instructionSet)
+    changedIndex: int = 0
+    successfulExecutionFlag: bool = False
 
-    print(f"{accumulator=}")
+    while not successfulExecutionFlag:
+        instructionSet, changedIndex = repairInstructionSet(
+            instructionSet, changedIndex
+        )
+        print(
+            f"Repaired instruction: {instructionSet[changedIndex]} "
+            f"at index {changedIndex}"
+        )
+
+        successfulExecutionFlag, accumulator = interpreter(instructionSet)
+
+        if changedIndex > len(instructionSet):
+            break
+
+    if successfulExecutionFlag == True:
+        print(f"{accumulator=}")
+    else:
+        print("Instruction repair failed")
+
     return 0
 
 
