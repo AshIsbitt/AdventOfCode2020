@@ -26,18 +26,18 @@ def checkInterpretation(numOfInstructionsRun: int, instructionSet: list[str]) ->
 def attemptedRepair(
     instructionSet: list[str], changedIndex: int
 ) -> tuple[list[str], int]:
-    # starting at list index changedIndex, I want to find the next nop/jmp
-    # and flip it, then change changedIndex to show how many further forward
-    # the function has checked. I also want to skip JMP with a positive value
-    # as they should not be able to cause an infinite loop
 
-    for index, instruction in enumerate(instructionSet[changedIndex:]):
+    for index, instruction in enumerate(instructionSet):
+        if index <= changedIndex:
+            continue
         if instruction[:3] == "jmp":  # and instruction[4] == '-':
-            instruction.replace("jmp", "nop")
+            instruction = instruction.replace("jmp", "nop")
+            print(f"{instruction=}")
             changedIndex = index
             break
         elif instruction[:3] == "nop":
-            instruction.replace("nop", "jmp")
+            instruction = instruction.replace("nop", "jmp")
+            print(f"{instruction=}")
             changedIndex = index
             break
 
@@ -69,6 +69,10 @@ def interpreter(instructionSet: list[str]) -> tuple[int, int]:
         else:
             bufHistory.append(instruction[0])
 
+        if instruction[0] == len(instructionSet) + 1:
+            print("Program terminated successfully")
+            return accumulator, len(bufHistory)
+
         if instruction[1][:3] == "jmp":
             pointer += int(instruction[1][4:])
             if pointer < 0:
@@ -87,8 +91,8 @@ def main(filename: str) -> int:
     hasTerminatedSuccessfully: bool = False
 
     while not hasTerminatedSuccessfully:
-        print(f"Testing instruction set with {changedIndex=} changed")
         instructionSet, changedIndex = attemptedRepair(instructionSet, changedIndex)
+        print(f"Testing instruction set with {changedIndex=} changed")
 
         accumulator, numOfInstructionsRun = interpreter(instructionSet)
         hasTerminatedSuccessfully = checkInterpretation(
@@ -96,6 +100,9 @@ def main(filename: str) -> int:
         )
 
         if hasTerminatedSuccessfully:
+            break
+        elif changedIndex == 635:
+            hasTerminatedSuccessfully == True
             break
 
     print(f"{accumulator=}")
