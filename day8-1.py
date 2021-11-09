@@ -1,8 +1,5 @@
 # Immediatly before any instruction is executed a second time, what value is in
 # the accumulator
-# pt2: Fix the program so that it terminates normally by changing exactly one
-# NOP to JMP or reverse. What is the value of the accumulator after the program
-# terminates.
 
 
 def bufChecker(
