@@ -2,24 +2,30 @@
 # NOP to JMP or reverse. What is the value of the accumulator after the program
 # terminates.
 
+import copy
+
 
 def repairInstructionSet(
     instructionSet: list[str], changedIndex: int
 ) -> tuple[list[str], int]:
 
-    for index, instruction in enumerate(instructionSet):
+    newInstructions = copy.deepcopy(instructionSet)
+
+    for index, instruction in enumerate(newInstructions):
         if index <= changedIndex:
             continue
-        elif instruction[:3] == "jmp":
-            instructionSet[index] = instruction.replace("jmp", "nop")
+        elif instruction[:3] == "jmp" and index > changedIndex:
+            newInstructions[index] = instruction.replace("jmp", "nop")
             changedIndex = index
             break
-        elif instruction[:3] == "nop":
-            instructionSet[index] = instruction.replace("nop", "jmp")
+        elif instruction[:3] == "nop" and index > changedIndex:
+            newInstructions[index] = instruction.replace("nop", "jmp")
             changedIndex = index
             break
+        else:
+            continue
 
-    return instructionSet, changedIndex
+    return newInstructions, changedIndex
 
 
 def bufChecker(
@@ -76,15 +82,17 @@ def main(filename: str) -> int:
     successfulExecutionFlag: bool = False
 
     while not successfulExecutionFlag:
-        instructionSet, changedIndex = repairInstructionSet(
+        print(f"{instructionSet=}")
+        repairedInstructions, changedIndex = repairInstructionSet(
             instructionSet, changedIndex
         )
-        print(
-            f"Repaired instruction: {instructionSet[changedIndex]} "
-            f"at index {changedIndex}"
-        )
 
-        successfulExecutionFlag, accumulator = interpreter(instructionSet)
+        # print(
+        #    f"Repaired instruction: {repairedInstructions[changedIndex][:-1]}",
+        #    f"at index {changedIndex}",
+        # )
+
+        successfulExecutionFlag, accumulator = interpreter(repairedInstructions)
 
         if changedIndex > len(instructionSet):
             break
