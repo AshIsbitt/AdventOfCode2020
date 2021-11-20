@@ -11,7 +11,7 @@ def validityChecker(currentVal: int, prevVals: list[int]) -> bool:
 
     for item in prevVals[-25:]:
         buf = currentVal - item
-        if buf in prevVals[-25:] and buf != item:
+        if buf in prevVals[-25:]:  # and buf != item:
             ret = True
             break
 
@@ -24,17 +24,17 @@ def main(filename: str) -> int:
 
     dataValues = list(map(int, returnedValues))
 
-    previousNums = [datum for datum in dataValues[:25]]
+    previousNums = dataValues[:25]
+    # print(f'{dataValues.index(135559)=}')
 
     for item in dataValues[25:]:
         isValid = validityChecker(item, previousNums)
 
         if isValid == True:
             previousNums.append(item)
-        elif isValid == False:
+        else:
             print(f"{isValid=}, {item=}")
             print(previousNums[-25:])
-            break
 
     return 0
 
