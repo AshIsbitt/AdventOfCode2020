@@ -27,7 +27,6 @@ def dataValidation(returnedValues: list[str]) -> int:
         if isValid == True:
             previousNums.append(item)
         else:
-            print(f"{isValid=}, {item=}")
             break
 
     return item
@@ -37,7 +36,8 @@ def main(filename: str) -> int:
     with open(filename) as inputFile:
         returnedValues = inputFile.readlines()
 
-    dataValidation(returnedValues)
+    anomalousValue = dataValidation(returnedValues)
+    print(f"{anomalousValue=}")
 
     return 0
 
