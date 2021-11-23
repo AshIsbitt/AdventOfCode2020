@@ -1,4 +1,10 @@
-# What is the encryption weakness in your XMAS-encrypted list of numbers?
+# Part 1:  The first step of attacking the weakness in the XMAS data is to find
+# the first number in the list (after the preamble) which is not the sum of two
+# of the 25 numbers before it. What is the first number that does not have this
+# property?
+
+# Part 2: What is the encryption weakness in your XMAS-encrypted list of
+# numbers?
 
 import pytest
 
@@ -15,7 +21,7 @@ def validityChecker(currentVal: int, prevVals: list[int]) -> bool:
     return ret
 
 
-def dataValidation(returnedValues: list[str]) -> int:
+def locateAnomalousValue(returnedValues: list[str]) -> int:
     dataValues = list(map(int, returnedValues))
 
     previousNums = dataValues[:25]
@@ -36,39 +42,13 @@ def main(filename: str) -> int:
     with open(filename) as inputFile:
         returnedValues = inputFile.readlines()
 
-    anomalousValue = dataValidation(returnedValues)
-    print(f"{anomalousValue=}")
+    anomalousValue = locateAnomalousValue(returnedValues)
+    print(f"Part 1: {anomalousValue=}")
 
     return 0
 
 
-test_list = [
-    1,
-    2,
-    3,
-    4,
-    5,
-    6,
-    7,
-    8,
-    9,
-    10,
-    11,
-    12,
-    13,
-    14,
-    15,
-    16,
-    17,
-    18,
-    19,
-    20,
-    21,
-    22,
-    23,
-    24,
-    25,
-]
+test_list = list(range(1, 26))
 
 
 @pytest.mark.parametrize(
