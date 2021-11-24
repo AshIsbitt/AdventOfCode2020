@@ -42,14 +42,18 @@ def encryptionWeakness(contiguousVals: list[int]) -> int:
 
 
 def contiguousNumberFinder(value: int, dataValues: list[int]) -> list[int]:
-    for num in dataValues:
+    for itera, num in enumerate(dataValues):
         contiguousVals: list[int] = []
+        contiguousVals.append(num)
 
-        for prevNum in reversed(range(dataValues[0], dataValues[num])):
+        for prevNum in list(reversed(dataValues[:itera])):
+            if prevNum == num:
+                break
+
             contiguousVals.append(prevNum)
 
             if value == sum(contiguousVals):
-                return contiguousVals
+                return list(reversed(contiguousVals))
 
     return [0, 0]
 
