@@ -1,6 +1,5 @@
 # For each group, count the number of questions to which everyone answered 'yes'. What is the sum
 # of those counts
-
 import string
 
 
@@ -28,6 +27,7 @@ def main(filename: str) -> str:
         sumOfCounts += countAnswers(item)
 
     print(f"{sumOfCounts=}")
+    return "0"
 
 
 if __name__ == "__main__":
