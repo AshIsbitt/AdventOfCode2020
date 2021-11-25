@@ -2,12 +2,9 @@
 # the first number in the list (after the preamble) which is not the sum of two
 # of the 25 numbers before it. What is the first number that does not have this
 # property?
-
 # Part 2: What is the encryption weakness in your XMAS-encrypted list of
 # numbers?
-
 import pytest
-from typing import Union
 
 
 def validityChecker(currentVal: int, prevVals: list[int]) -> bool:
@@ -29,7 +26,7 @@ def locateAnomalousValue(dataValues: list[int]) -> int:
     for item in dataValues[25:]:
         isValid = validityChecker(item, previousNums)
 
-        if isValid == True:
+        if isValid:
             previousNums.append(item)
         else:
             break
