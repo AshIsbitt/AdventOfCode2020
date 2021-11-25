@@ -1,5 +1,4 @@
 # In your batch file, how many passports are valid.
-
 import re
 
 
@@ -7,42 +6,28 @@ def validatePassport(passport: dict[int, int]) -> bool:
     hexaPattern = re.compile(r"#[0-9a-fA-F]")
 
     if len(passport) != 8 and not (len(passport) == 7 and "cid" not in passport):
-        print(f"1: {len(passport)}")
-
-        if len(passport) == 7:
-            print(passport.keys())
-
         return False
     elif int(passport["byr"]) not in range(1920, 2003):
-        print(f"2: {passport['byr']}")
         return False
     elif int(passport["iyr"]) not in range(2010, 2021):
-        print(f"3: {passport['iyr']}")
         return False
     elif int(passport["eyr"]) not in range(2020, 2031):
-        print(f"4: {passport['eyr']}")
         return False
     elif passport["hgt"][-2:] not in ["cm", "in"]:
-        print(f"5: {passport['hgt']}")
         return False
     elif passport["hgt"][-2:] == "cm" and (
         int(passport["hgt"][:-2]) not in range(150, 194)
     ):
-        print(6)
         return False
     elif passport["hgt"][-2:] == "in" and (
         int(passport["hgt"][:-2]) not in range(59, 77)
     ):
-        print(f"7: {passport['hgt']}")
         return False
     elif len(passport["hcl"]) != 7 and not re.search(hexaPattern, passport["hcl"]):
-        print(f"8: {passport['hcl']}")
         return False
     elif passport["ecl"] not in ["amb", "blu", "brn", "gry", "grn", "hzl", "oth"]:
-        print(f"9: {passport['ecl']}")
         return False
     elif len(passport["pid"]) != 9 or not passport["pid"].isdigit():
-        print(10)
         return False
     else:
         return True
@@ -83,7 +68,7 @@ def passportCheck(filename: str) -> str:
         validPassport = validatePassport(passport)
         if validPassport:
             validPassportsCount += 1
-        elif validPassport == None:
+        elif validPassport is None:
             print(f"NONE: {passport}")
 
     return f"{validPassportsCount=}"
