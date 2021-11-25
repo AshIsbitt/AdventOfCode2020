@@ -14,7 +14,7 @@ def dictBuilder(line: str) -> dict[str, dict[str, int]]:
 
         try:
             innerDict[item[2:]] = int(item[0])
-        except:
+        except Exception:
             continue
 
         outerDict[lineList[0]].update(innerDict)
