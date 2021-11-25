@@ -22,7 +22,9 @@ def threeSum(filename: str, sumValue: int) -> str:
                 continue
             elif remaining in numberSet:
                 return f"""{iterable=}, {secondIter=}, {remaining=}, Product={
-					iterable * secondIter * remaining}"""
+                        iterable * secondIter * remaining}"""
+
+    return "0"
 
 
 print(threeSum("SuppliedInputs/day1-1.txt", 2020))
