@@ -33,7 +33,7 @@ def interpreter(instructionSet: list[str]) -> int:
 
         alreadyExecuted, bufHistory = bufChecker(bufHistory, instruction)
 
-        if alreadyExecuted == True:
+        if alreadyExecuted:
             return accumulator
         else:
             bufHistory.append(instruction[0])

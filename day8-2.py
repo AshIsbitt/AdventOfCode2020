@@ -1,7 +1,6 @@
 # pt2: Fix the program so that it terminates normally by changing exactly one
 # NOP to JMP or reverse. What is the value of the accumulator after the program
 # terminates.
-
 import copy
 
 
@@ -59,7 +58,7 @@ def interpreter(instructionSet: list[str]) -> tuple[bool, int]:
 
         alreadyExecuted, bufHistory = bufChecker(bufHistory, instruction)
 
-        if alreadyExecuted == True:
+        if alreadyExecuted:
             return False, accumulator
         else:
             bufHistory.append(instruction[0])
@@ -97,7 +96,7 @@ def main(filename: str) -> int:
         if changedIndex > len(instructionSet):
             break
 
-    if successfulExecutionFlag == True:
+    if successfulExecutionFlag:
         print(f"{accumulator=}")
     else:
         print("Instruction repair failed")
