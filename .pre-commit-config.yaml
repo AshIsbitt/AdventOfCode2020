@@ -18,6 +18,7 @@ repos:
         additional_dependencies: [types-all]
         args:
           - "--show-traceback"
+          - "--install-types"
 -   repo: https://github.com/asottile/reorder_python_imports
     rev: v2.6.0
     hooks:
