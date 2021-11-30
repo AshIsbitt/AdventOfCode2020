@@ -15,10 +15,9 @@ repos:
     rev: v0.910-1
     hooks:
     -   id: mypy
-        additional_dependencies: [types-all]
+        additional_dependencies: [pytest==6.2.5]
         args:
           - "--show-traceback"
-          - "--install-types"
 -   repo: https://github.com/asottile/reorder_python_imports
     rev: v2.6.0
     hooks:
