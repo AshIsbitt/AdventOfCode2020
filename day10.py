@@ -6,18 +6,17 @@ import pytest
 
 
 def joltageChainCalculator(adapterStats: list[int]) -> tuple[int, int]:
-    count_ones: int = 0
-    count_threes: int = 0
+    count_ones: int = 1
+    count_threes: int = 1
 
     adapterStats.sort()
-    print(f"{adapterStats=}")
-    for item in adapterStats:
-        print(item)
-        if adapterStats[item] - adapterStats[item - 1] == 1:
+
+    for itera, item in enumerate(adapterStats):
+        if adapterStats[itera] - adapterStats[itera - 1] == 1:
             count_ones += 1
-        elif adapterStats[item] - adapterStats[item - 1] == 3:
+        elif adapterStats[itera] - adapterStats[itera - 1] == 3:
             count_threes += 1
-        elif adapterStats[item] - adapterStats[item - 1] > 3:
+        elif adapterStats[itera] - adapterStats[itera - 1] > 3:
             break
 
     return count_ones, count_threes
@@ -29,7 +28,7 @@ def main(filename: str) -> int:
 
     adapterStats = list(map(int, adapterData))
     chain = joltageChainCalculator(adapterStats)
-    print(f"Part 1: {chain}")
+    print(f"Part 1: {chain[0]*chain[1]}")
 
     return 0
 
