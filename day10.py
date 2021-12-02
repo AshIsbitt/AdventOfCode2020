@@ -2,6 +2,8 @@
 # your device's built-in adapter and count the joltage differences between the
 # charging outlet, the adapters, and your device. What is the number of 1-jolt
 # differences multiplied by the number of 3-jolt differences?
+# Part 2:What is the total number of distinct ways you can arrange the adapters
+# to connect the charging outlet to your device?
 import pytest
 
 
@@ -20,6 +22,10 @@ def joltageChainCalculator(adapterStats: list[int]) -> tuple[int, int]:
             break
 
     return count_ones, count_threes
+
+
+def distinctChainCalc(adapterStats: list[int]) -> int:
+    pass
 
 
 def main(filename: str) -> int:
@@ -86,3 +92,14 @@ def test_joltageChainCalculator(
     input_list: list[int], expected: tuple[int, int]
 ) -> None:
     assert joltageChainCalculator(input_list) == expected
+
+
+@pytest.mark.parametrize(
+    ("input_list", "expected"),
+    (
+        (test_data, 19208),
+        (test_data_2, 8),
+    ),
+)
+def test_distinctChainCalc(input_list: list[int], expected: int) -> None:
+    assert distinctChainCalc(input_list) == expected
